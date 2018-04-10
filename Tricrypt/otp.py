@@ -4,11 +4,13 @@ from hashlib import sha1
 import time
 import hmac
 
+
 # all codes are returned as a totp instance
 class totp(object):
     def __init__(self, code, validfor):
         self.code = code
         self.validfor = validfor
+
 
 # HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))
 def int_to_bytestring(i, padding=8):
@@ -18,14 +20,17 @@ def int_to_bytestring(i, padding=8):
         i >>= 8
     return bytes(result[::-1].rjust(padding, b'\0'))
 
+
 def now():
     return int(time.time())
+
 
 def timecode(timeval):
     return int_to_bytestring(int(timeval)/30)
 
+
 def otp(secretkey, codelen=6, timeval=now()):
-    validFor = 30 - (timeval%30)
+    validFor = 30 - (timeval % 30)
     hasher = hmac.new(b32decode(secretkey), timecode(timeval), sha1)
     hmac_hash = bytearray(hasher.digest())
     offset = hmac_hash[-1] & 0xf
