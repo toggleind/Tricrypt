@@ -1,0 +1,9 @@
+# TriCrypt Configuration
+settings:
+    pattern: ['S', 'T', 'C', 'C']
+    pin_length: 6
+
+sites:
+    facebook: "AAAAAAAAAAAAAAAA"
+    google: "XXXXXXXXXXXXXXXX"
+    myspace: "QQQQQQQQQQQQQQQQ"
