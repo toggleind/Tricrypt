@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Include a license block here
 import yaml
 from random import shuffle, randint
 
@@ -7,12 +8,12 @@ import otp
 #globals
 shapes = list(set(['C', 'S', 'D', 'T'])) # make unique
 
-class settings(object):
+class Settings(object):
     def __init__(self, d=dict(), sites=dict()):
         self.__dict__ = d
         self.sites = sites
 
-    def importYaml(self, filename):
+    def importYamlFile(self, filename):
         with open(filename, 'r') as stream:
             s = yaml.load(stream)
             try:
@@ -21,7 +22,9 @@ class settings(object):
             except KeyError:
                 pass
 
-
+# refactor this.
+# Tricrypt() should return an object or data structure
+# formatting should be an outside function.
 def Tricrypt(totp, args, s):
     # get the formatting strings right
     # move this to seperate file?
@@ -57,20 +60,3 @@ def Tricrypt(totp, args, s):
     out += footer
         
     return out
-
-if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser()
-    parser.add_argument("service", help="a service name stored in the conf file.")
-    parser.add_argument("-x", "--xml", help="enable xml output", action="store_true")
-    parser.add_argument("-l", "--length", help="code length", type=int, default=6)
-    parser.add_argument("--settings-file", help="Alternate Settings File", default="Tricrypt.yml")
-    args = parser.parse_args()
-    
-    s = settings()
-    s.importYaml(args.settings_file)
-    
-    if args.service in s.sites:
-        totp = otp.otp(s.sites[args.service], args.length) # clean this up
-        print Tricrypt(totp, args, s) # make this better, pass settings and shapes, and python3
