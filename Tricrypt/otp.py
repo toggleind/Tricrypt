@@ -25,13 +25,13 @@ def now():
     return int(time.time())
 
 
-def timecode(timeval):
-    return int_to_bytestring(int(timeval)/30)
+def timecode(timeval, interval):
+    return int_to_bytestring(int(timeval)/interval)
 
 
-def otp(secretkey, codelen=6, timeval=now()):
+def otp(secretkey, codelen=6, timeval=now(), interval=30):
     validFor = 30 - (timeval % 30)
-    hasher = hmac.new(b32decode(secretkey), timecode(timeval), sha1)
+    hasher = hmac.new(b32decode(secretkey), timecode(timeval, interval), sha1)
     hmac_hash = bytearray(hasher.digest())
     offset = hmac_hash[-1] & 0xf
     code = ((hmac_hash[offset] & 0x7f) << 24 |
