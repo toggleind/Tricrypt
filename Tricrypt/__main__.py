@@ -11,13 +11,16 @@ def main():
     parser.add_argument("--settings-file", help="Alternate Settings File", default="Tricrypt.yml")
     args = parser.parse_args()
     
-    s = Settings()
+    s = Tricrypt.Settings()
     s.importYamlFile(args.settings_file)
     
-    if args.service in s.sites:
-        totp = otp.otp(s.sites[args.service], args.length) # clean this up
-        print Tricrypt(totp, args, s) # make this better, pass settings and shapes, and python3
-
+    try:
+        service_name = s.sites[args.service]
+        totp = Tricrypt.otp(service_name, s.pin_length) # clean this up
+        print Tricrypt.Tricrypt(totp, service_name, s) # make this better, pass settings and shapes, and python3
+    except KeyError as e:
+        print "'{}' is not a defined service.".format(e.message)
+        print "Please update your conf file if needed.\n"
 
 if __name__=="__main__":
     main()

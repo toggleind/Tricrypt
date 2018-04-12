@@ -1,7 +1,8 @@
 # TriCrypt Configuration
-settings:
-    pattern: ['S', 'T', 'C', 'C']
-    pin_length: 6
+
+pattern: ['S', 'S', 'T', 'C']
+pin_length: 6
+output: 'plain'
 
 sites:
     facebook: "AAAAAAAAAAAAAAAA"

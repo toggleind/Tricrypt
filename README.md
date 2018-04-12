@@ -15,12 +15,19 @@ security for the most sensitive situations, or just the most paranoid of users.
 Intrigued? then lets get started.
 
 ## Installing
+to install from PyPi: 
 `pip install Tricrypt`
-It's that easy.
+
+or to install the most bleeding edge version from github:
+```
+git clone https://github.com/toggleind/Tricrypt
+cd Tricrypt/
+sudo python setup.py install
+```
 
 ## Configuring
 This is currently not as easy as it should be, so for brevity, you can read
-about that in [CONFIGURING.MD](configuring.md)
+about that in [CONFIGURATION.MD](CONFIGURATION.md)
 
 ## Running
 If you have successfully configured Tricrypt, then running is a breeze.
